@@ -5,52 +5,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Task</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
-    <form method="GET" action="{{ route('words.index') }}">
-        <input type="text" name="search" placeholder="Search..." value="{{ request('search') }}">
-        <button type="submit">Search</button>
-    </form>
-    <h1>Words</h1>
 
-    @if(session('success'))
-        <p>{{ session('success') }}</p>
-    @endif
+<!-- Navbar with search function -->
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand">Words</a>
+        <form method="GET" action="{{ route('words.index') }}" class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"
+                name="search" value="{{ request('search') }}">
+            <button type="submit" class="btn btn-outline-success">Search</button>
+        </form>
+    </div>
+</nav>
 
 
-    <!-- check for words -->
-    @if ($words->count() > 0)
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>First language</th>
-                    <th>Second language</th>
-                    <th>Example Sentence (1st Lang)</th>
-                    <th>Example Sentence (2nd Lang)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($words as $word)
+    <main class="mx-5">
+
+        @if(session('success'))
+            <p>{{ session('success') }}</p>
+        @endif
+
+
+        <!-- check for words -->
+        @if ($words->count() > 0)
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>{{ $word->id }}</td>
-                        <td>{{ $word->wordFirstLang }}</td>
-                        <td>{{ $word->wordSecondLang }}</td>
-                        <td>{{ !empty($word->sentenceFirstLang) ? $word->sentenceFirstLang : 'not available' }}</td>
-                        <td>{{ !empty($word->sentenceSecondLang) ? $word->sentenceSecondLang : 'not available' }}</td>
-                        <!-- edit button -->
-                        <td>
-                            <a href="{{ route('words.edit', $word->id) }}" class="btn btn-primary">Edit</a>
-                        </td>
+                        <th>ID</th>
+                        <th>First language</th>
+                        <th>Second language</th>
+                        <th>Example Sentence (1st Lang)</th>
+                        <th>Example Sentence (2nd Lang)</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-        {{ $words->links() }} <!-- pagination -->
-    @else
-        <p>No words found.</p>
-    @endif
+                </thead>
+                <tbody class="table-group-divider">
+                    <!-- print the words in a table -->
+                    @foreach ($words as $word)
+                        <tr>
+                            <td>{{ $word->id }}</td>
+                            <td>{{ $word->wordFirstLang }}</td>
+                            <td>{{ $word->wordSecondLang }}</td>
+                            <!-- Sentences: if the field in the database is empty, print not available -->
+                            <td>{{ !empty($word->sentenceFirstLang) ? $word->sentenceFirstLang : 'not available' }}</td>
+                            <td>{{ !empty($word->sentenceSecondLang) ? $word->sentenceSecondLang : 'not available' }}</td>
+                            
+                            <!-- edit button -->
+                            <td>
+                                <a href="{{ route('words.edit', $word->id) }}" class="btn btn-primary">Edit</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+                {{ $words->links('pagination::bootstrap-4') }}
+            </div> <!-- pagination -->
+        @else
+            <p>No words found.</p>
+        @endif
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    </main>
 </body>
 
 </html>
