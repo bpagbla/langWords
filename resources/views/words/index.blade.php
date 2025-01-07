@@ -46,20 +46,50 @@
                 <tbody class="table-group-divider">
                     <!-- print the words in a table -->
                     @foreach ($words as $word)
-                        <tr>
-                            <td>{{ $word->id }}</td>
-                            <td>{{ $word->wordFirstLang }}</td>
-                            <td>{{ $word->wordSecondLang }}</td>
-                            <!-- Sentences: if the field in the database is empty, print not available -->
-                            <td>{{ !empty($word->sentenceFirstLang) ? $word->sentenceFirstLang : 'not available' }}</td>
-                            <td>{{ !empty($word->sentenceSecondLang) ? $word->sentenceSecondLang : 'not available' }}</td>
-                            
-                            <!-- edit button -->
-                            <td>
-                                <a href="{{ route('words.edit', $word->id) }}" class="btn btn-primary">Edit</a>
-                            </td>
-                        </tr>
-                    @endforeach
+            <tr>
+                <td>{{ $word->id }}</td>
+                <!-- Resaltar palabra en primer idioma -->
+                <td>
+                    @if ($search)
+                        {!! preg_replace('/(' . preg_quote($search, '/') . ')/i', '<span class="fw-semibold text-primary">$1</span>', $word->wordFirstLang) !!}
+                    @else
+                        {{ $word->wordFirstLang }}
+                    @endif
+                </td>
+
+                <!-- Resaltar palabra en segundo idioma -->
+                <td>
+                    @if ($search)
+                        {!! preg_replace('/(' . preg_quote($search, '/') . ')/i', '<span class="fw-semibold text-primary">$1</span>', $word->wordSecondLang) !!}
+                    @else
+                        {{ $word->wordSecondLang }}
+                    @endif
+                </td>
+
+                <!-- Resaltar frase en primer idioma -->
+                <td>
+                    @if ($search)
+                        {!! preg_replace('/(' . preg_quote($search, '/') . ')/i', '<span class="fw-semibold text-primary">$1</span>', $word->sentenceFirstLang) !!}
+                    @else
+                        {{ !empty($word->sentenceFirstLang) ? $word->sentenceFirstLang : 'Not available' }}
+                    @endif
+                </td>
+
+                <!-- Resaltar frase en segundo idioma -->
+                <td>
+                    @if ($search)
+                        {!! preg_replace('/(' . preg_quote($search, '/') . ')/i', '<span class="fw-semibold text-primary">$1</span>', $word->sentenceSecondLang) !!}
+                    @else
+                        {{ !empty($word->sentenceSecondLang) ? $word->sentenceSecondLang : 'Not available' }}
+                    @endif
+                </td>
+
+                <!-- Botón de editar -->
+                <td>
+                    <a href="{{ route('words.edit', $word->id) }}" class="btn btn-primary">Edit</a>
+                </td>
+            </tr>
+        @endforeach
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">

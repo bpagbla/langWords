@@ -9,18 +9,24 @@ class WordController extends Controller
     public function index(Request $request)
     {
         $query = Word::query();
+        $search = $request->input('search'); // Obtén la palabra de búsqueda
 
-        if ($request->has('search') && !empty($request->search)) {
-            $query->where('wordFirstLang', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('wordSecondLang', 'LIKE', '%' . $request->search . '%');
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('wordFirstLang', 'like', "%{$search}%")
+                    ->orWhere('sentenceFirstLang', 'like', "%{$search}%")
+                    ->orWhere('wordSecondLang', 'like', "%{$search}%")
+                    ->orWhere('sentenceSecondLang', 'like', "%{$search}%");
+            });
         }
 
+        // Paginamos los resultados
         $words = $query->paginate(10);
 
-
-
-        return view('words.index', compact('words'));
+        // Pasamos la palabra buscada a la vista para resaltarla
+        return view('words.index', compact('words', 'search'));
     }
+
 
 
     public function create()
