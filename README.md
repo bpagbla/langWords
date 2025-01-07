@@ -5,3 +5,4 @@ and update the content easily.
 
 ## Features
 **Search**: Search for words/phrases by their first language or second language.
+**Edit**: Edit words and sentences and save them to the local database.
