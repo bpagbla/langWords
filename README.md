@@ -17,7 +17,7 @@ and update the content easily.
 
 ### Instructions
 1. Clone repository: 
-`git clone https://github.com/bpagbla/langWords.git`
-2. Run `bash setup.sh`
-3. Install dependencies: `composer install`
-4. Run application: `php artisan serve`
+`git clone https://github.com/bpagbla/langWords.git`.
+2. Copy the .env.example file and create an .env file. Run `php artisan key:generate`.
+3. Install dependencies: `composer install`.
+4. Run application: `php artisan serve`.
