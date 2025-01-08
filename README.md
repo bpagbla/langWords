@@ -16,5 +16,8 @@ and update the content easily.
 - You need Composer installed to handle PHP dependencies.
 
 ### Instructions
-1. Clone repository
+1. Clone repository: 
 `git clone https://github.com/bpagbla/langWords.git`
+2. Run `bash setup.sh`
+3. Install dependencies: `composer install`
+4. Run application: `php artisan serve`
