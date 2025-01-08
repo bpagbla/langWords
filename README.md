@@ -10,3 +10,11 @@ and update the content easily.
 - **Initial Data**: At application start, content will be loaded from a JSON file to populate the local database. 
 
 ## Set up
+### Dependencies
+- You need PHP 8.2 or higher installed on your system.
+- Laravel version 11.x (at least version 11.31 or newer).
+- You need Composer installed to handle PHP dependencies.
+
+### Instructions
+1. Clone repository
+`git clone https://github.com/bpagbla/langWords.git`
