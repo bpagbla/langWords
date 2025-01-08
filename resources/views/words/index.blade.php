@@ -14,7 +14,7 @@
     <!-- Navbar with search function -->
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand">Words</a>
+            <a class="navbar-brand">Entries</a>
             <form method="GET" action="{{ route('words.index') }}" class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search" name="search"
                     value="{{ request('search') }}">
