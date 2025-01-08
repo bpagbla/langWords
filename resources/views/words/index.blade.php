@@ -48,7 +48,7 @@
                     @foreach ($words as $word)
             <tr>
                 <td>{{ $word->id }}</td>
-                <!-- Resaltar palabra en primer idioma -->
+                <!-- if a word was searched, highlight it -->
                 <td>
                     @if ($search)
                         {!! preg_replace('/(' . preg_quote($search, '/') . ')/i', '<span class="fw-semibold text-primary">$1</span>', $word->wordFirstLang) !!}
@@ -57,7 +57,7 @@
                     @endif
                 </td>
 
-                <!-- Resaltar palabra en segundo idioma -->
+   
                 <td>
                     @if ($search)
                         {!! preg_replace('/(' . preg_quote($search, '/') . ')/i', '<span class="fw-semibold text-primary">$1</span>', $word->wordSecondLang) !!}
@@ -66,7 +66,6 @@
                     @endif
                 </td>
 
-                <!-- Resaltar frase en primer idioma -->
                 <td>
                     @if ($search)
                         {!! preg_replace('/(' . preg_quote($search, '/') . ')/i', '<span class="fw-semibold text-primary">$1</span>', $word->sentenceFirstLang) !!}
@@ -75,7 +74,6 @@
                     @endif
                 </td>
 
-                <!-- Resaltar frase en segundo idioma -->
                 <td>
                     @if ($search)
                         {!! preg_replace('/(' . preg_quote($search, '/') . ')/i', '<span class="fw-semibold text-primary">$1</span>', $word->sentenceSecondLang) !!}
@@ -84,7 +82,7 @@
                     @endif
                 </td>
 
-                <!-- Botón de editar -->
+                <!-- Edit button -->
                 <td>
                     <a href="{{ route('words.edit', $word->id) }}" class="btn btn-primary">Edit</a>
                 </td>
